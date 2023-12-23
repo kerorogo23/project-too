@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,19 +27,31 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUser(@PathVariable Integer id) {
 
-        UserEntity result = userService.getUser(id);
+        try {
 
-        return ResponseEntity.ok(result);
+            UserEntity result = userService.getUser(id);
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @GetMapping
-    public ResponseEntity<String> getUserAll() {
+    @GetMapping("/user/all")
+    public ResponseEntity<List<UserEntity>> getUserAll() {
 
-        return null;
+        try {
+
+            List<UserEntity> results = userService.getUserAll();
+
+            return ResponseEntity.ok(results);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PostMapping("user/create")
-    public ResponseEntity<String> createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserRequest request) {
         // TODO: process POST request
 
         return null;
