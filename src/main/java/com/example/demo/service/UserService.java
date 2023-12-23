@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.database.UserEntity;
 import com.example.demo.depository.UserRepository;
+import com.example.demo.domain.UserRequest;
 
 @Service
 public class UserService {
@@ -27,5 +28,16 @@ public class UserService {
         List<UserEntity> results = userRepository.findAll();
 
         return results;
+    }
+
+    public UserEntity createUser(UserRequest request) {
+
+        UserEntity entity = new UserEntity();
+
+        entity.setName(request.getName());
+
+        entity.setAge(request.getAge());
+
+        return userRepository.save(entity);
     }
 }

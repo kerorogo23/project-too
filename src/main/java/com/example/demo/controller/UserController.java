@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.UserEntity;
 import com.example.demo.domain.UserRequest;
+import com.example.demo.domain.UserResponse;
 import com.example.demo.service.UserService;
+import com.example.demo.util.covert.UserCovert;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,38 +25,48 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserCovert userCovert;
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable Integer id) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable Integer id) {
 
         try {
 
-            UserEntity result = userService.getUser(id);
+            UserEntity entity = userService.getUser(id);
+            UserResponse response = userCovert.covertResponse(entity);
 
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/user/all")
-    public ResponseEntity<List<UserEntity>> getUserAll() {
+    public ResponseEntity<List<UserResponse>> getUserAll() {
 
         try {
 
-            List<UserEntity> results = userService.getUserAll();
+            List<UserEntity> entities = userService.getUserAll();
+            List<UserResponse> responses = userCovert.covertResponses(entities);
 
-            return ResponseEntity.ok(results);
+            return ResponseEntity.ok(responses);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("user/create")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserRequest request) {
-        // TODO: process POST request
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest request) {
+        try {
 
-        return null;
+            UserEntity entity = userService.createUser(request);
+            UserResponse response = userCovert.covertResponse(entity);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("user/update")
