@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.database.UserEntity;
 import com.example.demo.depository.UserRepository;
-import com.example.demo.domain.UserRequest;
+import com.example.demo.domain.user.UserRequest;
 
 @Service
 public class UserService {

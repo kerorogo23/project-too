@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.UserEntity;
-import com.example.demo.domain.UserRequest;
-import com.example.demo.domain.UserResponse;
+import com.example.demo.domain.user.UserRequest;
+import com.example.demo.domain.user.UserResponse;
 import com.example.demo.service.UserService;
 import com.example.demo.util.covert.UserCovert;
 

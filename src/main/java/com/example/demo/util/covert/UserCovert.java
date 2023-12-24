@@ -6,8 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.database.UserEntity;
-
-import com.example.demo.domain.UserResponse;
+import com.example.demo.domain.user.UserResponse;
 
 @Component
 public class UserCovert {
